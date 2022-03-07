@@ -2,6 +2,7 @@ import React from 'react'
 import {useTodoLayerValue} from "./context/TodoContext";
 import { useState } from 'react';
 import TodoList from './components/TodoList'
+import "./App.css";
 
 function App  () {
   const [{ todos }, dispatch] = useTodoLayerValue();
@@ -17,6 +18,7 @@ function App  () {
       content,
       isCompleted: false
     };
+
     dispatch({
       type: "ADD_TODO",
       payload: newTodo,

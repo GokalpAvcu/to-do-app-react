@@ -1,24 +1,56 @@
-import React from 'react'
-import {MdFreeCancellation } from "react-icons/md";
-import {BiEditAlt} from "react-icons/bi";
-import {GrFormCheckmark} from "react-icons/gr";
-import { useTodoLayerValue} from "../context/TodoContext";
+import React from "react";
+import clsx from "clsx";
+import { GrFormClose, GrFormEdit, GrFormCheckmark } from "react-icons/gr";
+import { useTodoLayerValue } from "../context/TodoContext";
 
-function Todo({todo}) {
+const Todo = ({ todo }) => {
+  const [{}, dispatch] = useTodoLayerValue();
+  const [editable, setEditable] = useState(false);
+
+  const removeTodo = (todoId) => {
+    dispatch({
+      type: "REMOVE_TODO",
+      payload: todoId,
+    });
+  };
+
+  const completeTodo = (todoId) => {
+    dispatch({
+      type: "COMPLETE_TODO",
+      payload: todoId,
+    });
+  };
+
+  const todoStyle = clsx({
+    ["todo-row"]: true,
+    ["completed"]: todo.isCompleted,
+  });
+
   return (
-    <div className='todo-row'>
-      <div>
-      {todo.content}
-      </div>
+    <>
+      <div className={todoStyle}>
+        <div onClick={() => completeTodo(todo.id)}>
+          {
+            editable ?
+            <input type="text" value={} onChange=(event => {}) />;
+            {todo.content}
+             
 
-      <div className="todo-icons">
-        <MdFreeCancellation className="todo-icon"/>
-        <BiEditAlt className="todo-icon"/>
-        <GrFormCheckmark className="todo-icon"/>
+          }
+
+        </div>
+
+        <div className="todo-icons">
+          <GrFormClose
+            className="todo-icon"
+            onClick={() => removeTodo(todo.id)}
+          />
+          <GrFormEdit className="todo-icon" onClick={() => setEditable(true)} />
+          <GrFormCheckmark className="todo-icon" />
         </div>
       </div>
-      
-  )
-}
+    </>
+  );
+  }
 
-export default Todo
+export default Todo;
