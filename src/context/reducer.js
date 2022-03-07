@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
     todos: []
 };
 
@@ -18,3 +18,5 @@ const reducer = (state, action) => {
                 };
     }
 }
+
+export default reducer;
